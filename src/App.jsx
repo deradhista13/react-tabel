@@ -24,17 +24,32 @@ function App() {
     },
   ]);
 
+  const [rowToEdit, setRowToEdit] = useState(null);
+
   const handleDeleteRows = (targetIndex) => {
     setRow(row.filter((_, idx) => idx !== targetIndex));
   };
 
   const handleSubmit = (newRow) => {
-    setRow([...row, newRow]);
+    rowToEdit === null
+      ? setRow([...row, newRow])
+      : setRow(
+          row.map((currRow, idx) => {
+            if (idx !== rowToEdit) return currRow;
+            return newRow;
+          })
+        );
+  };
+
+  const handleEditRow = (idx) => {
+    setRowToEdit(idx);
+
+    setModalOpen(true);
   };
 
   return (
     <div className="App">
-      <Table row={row} deleteRow={handleDeleteRows} />
+      <Table row={row} deleteRow={handleDeleteRows} editRow={handleEditRow} />
       <button className="btn" onClick={() => setModalOpen(true)}>
         Add
       </button>
@@ -42,8 +57,10 @@ function App() {
         <Modal
           closeModal={() => {
             setModalOpen(false);
+            setRowToEdit(null);
           }}
           onSubmit={handleSubmit}
+          defaultValue={rowToEdit !== null && row[rowToEdit]}
         />
       )}
     </div>
