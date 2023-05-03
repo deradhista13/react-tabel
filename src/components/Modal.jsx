@@ -74,7 +74,7 @@ export const Modal = ({ closeModal, onSubmit }) => {
               <option value="error">Error</option>
             </select>
           </div>
-          {error && <div>{`Please inclue:${error}`}</div>}
+          {error && <div className="error">{`Please inclue:${error}`}</div>}
           <button type="submit" className="btn" onClick={handleSubmit}>
             Submit
           </button>
