@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Table.css";
 import { BsFillTrashFill, BsFillPencilFill } from "react-icons/bs";
 
-function Table({ rows, deleteRow }) {
+function Table({ row, deleteRow }) {
   return (
     <div className="table-wrapper">
       <table className="table">
@@ -15,7 +15,7 @@ function Table({ rows, deleteRow }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, idx) => {
+          {row.map((row, idx) => {
             const statusText =
               row.status.charAt(0).toUpperCase() + row.status.slice(1);
             return (

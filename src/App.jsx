@@ -6,7 +6,7 @@ import Table from "./components/Table";
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [rows, setRows] = useState([
+  const [row, setRow] = useState([
     {
       page: "page 1",
       description: "this is first page",
@@ -25,12 +25,16 @@ function App() {
   ]);
 
   const handleDeleteRows = (targetIndex) => {
-    setRows(rows.filter((_, idx) => idx !== targetIndex));
+    setRow(row.filter((_, idx) => idx !== targetIndex));
+  };
+
+  const handleSubmit = (newRow) => {
+    setRow([...row, newRow]);
   };
 
   return (
     <div className="App">
-      <Table rows={rows} deleteRow={handleDeleteRows} />
+      <Table row={row} deleteRow={handleDeleteRows} />
       <button className="btn" onClick={() => setModalOpen(true)}>
         Add
       </button>
@@ -39,6 +43,7 @@ function App() {
           closeModal={() => {
             setModalOpen(false);
           }}
+          onSubmit={handleSubmit}
         />
       )}
     </div>
